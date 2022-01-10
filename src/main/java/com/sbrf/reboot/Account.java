@@ -1,5 +1,8 @@
 package com.sbrf.reboot;
 
+import lombok.Data;
+
+@Data
 public class Account {
     private String accountNm;
     private Long clientId;
