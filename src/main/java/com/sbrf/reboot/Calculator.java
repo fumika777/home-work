@@ -3,7 +3,7 @@ package com.sbrf.reboot;
 public class Calculator {
 
     public static int getAddition(int a, int b){
-        return a+b;
+        return Math.addExact(a,b);
     }
 
     public static int getSubtraction(int a, int b){
@@ -27,11 +27,26 @@ public class Calculator {
     }
 
     public static int getModule(int a, int b){
-        return a%b;
+        int c;
+        if (b!=0) {
+            c=a%b;
+            return c;
+        }
+        else {
+            System.out.println("На 0 делить нельзя");
+            return 0;
+        }
     }
 
     public static float getPercent(float a, float b){
-        float c=a/b*100;
-        return c;
+    float c;
+        if (b!=0) {
+            c=a/b*100;
+            return c;
+        }
+        else {
+            System.out.println("На 0 делить нельзя");
+            return 0;
+        }
     }
 }
