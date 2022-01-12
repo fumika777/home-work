@@ -1,8 +1,5 @@
 package com.sbrf.reboot;
 
-
-import java.util.Set;
-
 public class AccountService {
 
     private AccountRepository repository;
@@ -14,3 +11,4 @@ public class AccountService {
         return repository.getAllAccountsByClientId(client).contains(account);
     }
 }
+

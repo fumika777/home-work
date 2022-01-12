@@ -20,26 +20,23 @@ public class AccountRepositoryImpl implements AccountRepository {
                 textFile = textFile + reader.readLine();
             }
         }
-//        catch (IOException e){
-//            System.out.println(e);
-//        }
 
-        String[] arrayAccounts = textFile.split(",");
-        String pattern = "(\"clientId\": )(.*)(\\p{P}+.*)(\"number\": )(.*)(})";
+        String[] arrayAccounts = textFile.split("},");
+        String pattern = "(\"clientId\": )(.*)(\\p{P}+.*)(\"number\": )(.*)(}*)";
         Pattern r = Pattern.compile(pattern);
         Matcher m;
         for (int i = 0; i < arrayAccounts.length; i++) {
             m = r.matcher(arrayAccounts[i]);
             if (m.find()) {
-                assert this.repository != null;
-                this.repository.add(new Account(m.group(5), Long.parseLong(m.group(2))));
-                System.out.println(this.repository.stream().count());
+                this.repository.add(new Account.builder()
+                        .number(m.group(5).replaceAll("\\s+","").replace("}]","").replace("\"",""))
+                        .id(Long.parseLong(m.group(2))).build());
             }
         }
     }
 
     @Override
     public Set<Account> getAllAccountsByClientId(long clientId) {
-        return this.repository.stream().filter(el-> el.getClientId()==clientId).collect(Collectors.toSet());
+        return this.repository.stream().filter(el-> el.getId()==clientId).collect(Collectors.toSet());
     }
 }
