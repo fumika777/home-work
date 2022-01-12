@@ -1,6 +1,6 @@
 package com.sbrf.reboot.utils;
 
-import com.sbrf.reboot.dto.Account;
+import com.sbrf.reboot.Account;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
