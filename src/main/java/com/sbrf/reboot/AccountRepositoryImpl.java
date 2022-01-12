@@ -13,11 +13,17 @@ public class AccountRepositoryImpl implements AccountRepository {
     public AccountRepositoryImpl(String path) throws FileNotFoundException, IOException {
         this.repository = new HashSet<Account>();
         String textFile = "";
-        try (FileReader fileReader=new FileReader(path); BufferedReader reader = new BufferedReader(fileReader);){
+        try (FileReader fileReader=new FileReader(path);
+             BufferedReader reader = new BufferedReader(fileReader)
+             ){
             while (reader.ready()) {
                 textFile = textFile + reader.readLine();
             }
         }
+//        catch (IOException e){
+//            System.out.println(e);
+//        }
+
         String[] arrayAccounts = textFile.split(",");
         String pattern = "(\"clientId\": )(.*)(\\p{P}+.*)(\"number\": )(.*)(})";
         Pattern r = Pattern.compile(pattern);
