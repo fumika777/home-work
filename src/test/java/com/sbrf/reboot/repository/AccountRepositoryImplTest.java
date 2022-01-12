@@ -6,6 +6,7 @@ import com.sbrf.reboot.AccountRepositoryImpl;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -33,12 +34,11 @@ class AccountRepositoryImplTest {
     void successGetAllAccountsByClientId() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(1);
-
         assertEquals(1, (int) allAccountsByClientId.stream().filter(e -> e.getNumber().equals("4-ACC1NUM")).count());
     }
 
     @Test
-    void failGetAllAccountsByClientId() {
+    void failGetAllAccountsByClientId() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl("somePath");
         assertThrows(FileNotFoundException.class, () -> {
             accountRepository.getAllAccountsByClientId(1L);
