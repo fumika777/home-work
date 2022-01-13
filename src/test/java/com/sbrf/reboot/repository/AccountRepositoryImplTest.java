@@ -17,7 +17,7 @@ class AccountRepositoryImplTest {
     AccountRepository accountRepository;
 
     @Test
-    void onlyPersonalAccounts() throws FileNotFoundException {
+    void onlyPersonalAccounts() throws IOException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(1);
         ArrayList<String> strings = new ArrayList<String>() {{
@@ -30,7 +30,7 @@ class AccountRepositoryImplTest {
     }
 
     @Test
-    void successGetAllAccountsByClientId() throws FileNotFoundException {
+    void successGetAllAccountsByClientId() throws IOException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(1);
 
