@@ -16,6 +16,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         this.file=path;
     }
 
+
     private Set<Account> saveAccountsFromFile() throws IOException {
         this.repository = new HashSet<Account>();
         String textFile = "";
@@ -55,5 +56,14 @@ public class AccountRepositoryImpl implements AccountRepository {
             System.out.println(e.getMessage());
         }
         return this.repository.stream().filter(el-> el.getId()==clientId).collect(Collectors.toSet());
+    }
+
+    public Set<Account> getRepository(){
+        try{
+            this.saveAccountsFromFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return this.repository;
     }
 }
