@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class Account {
     private String number;
     private long id;
+    private long clientId;
     private LocalDate createDate;
     private BigDecimal balance;
 
@@ -31,6 +32,11 @@ public class Account {
 
         public builder() {
             account = new Account();
+        }
+
+        public builder clientId(long clientId){
+            account.clientId = clientId;
+            return this;
         }
 
         public builder id(long id){

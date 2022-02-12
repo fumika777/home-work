@@ -1,7 +1,8 @@
 package com.sbrf.reboot.service;
 
-import com.sbrf.reboot.dto.Account;
-import com.sbrf.reboot.repository.AccountRepository;
+import com.sbrf.reboot.Account;
+import com.sbrf.reboot.AccountRepository;
+import com.sbrf.reboot.AccountService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,11 +57,11 @@ class AccountServiceTest {
     @SneakyThrows
     @Test
     void getMaxAccountBalance() {
-        Account accountWithMaxBalance = Account.builder().clientId(1L).id(4L).balance(new BigDecimal(150000)).build();
+        Account accountWithMaxBalance = new Account.builder().clientId(1L).id(4L).balance(new BigDecimal(150000)).build();
         Set<Account> accounts = new HashSet() {{
-            add(Account.builder().clientId(1L).id(1L).balance(BigDecimal.TEN).build());
-            add(Account.builder().clientId(1L).id(2L).balance(new BigDecimal(200)).build());
-            add(Account.builder().clientId(1L).id(3L).balance(new BigDecimal("1.65")).build());
+            add(new Account.builder().clientId(1L).id(1L).balance(BigDecimal.TEN).build());
+            add(new Account.builder().clientId(1L).id(2L).balance(new BigDecimal(200)).build());
+            add(new Account.builder().clientId(1L).id(3L).balance(new BigDecimal("1.65")).build());
             add(accountWithMaxBalance);
         }};
 
@@ -73,16 +74,16 @@ class AccountServiceTest {
     @SneakyThrows
     @Test
     void getAllAccountsByDateMoreThen() {
-        Account account1 = Account.builder().clientId(1L)
+        Account account1 =new Account.builder().clientId(1L)
                 .createDate(LocalDate.now().minusDays(2))
                 .build();
-        Account account2 = Account.builder().clientId(1L)
+        Account account2 =new Account.builder().clientId(1L)
                 .createDate(LocalDate.now().minusDays(3))
                 .build();
-        Account account3 = Account.builder().clientId(1L)
+        Account account3 =new Account.builder().clientId(1L)
                 .createDate(LocalDate.now().minusDays(1))
                 .build();
-        Account account4 = Account.builder().clientId(1L)
+        Account account4 =new Account.builder().clientId(1L)
                 .createDate(LocalDate.now().minusDays(7))
                 .build();
 
@@ -92,12 +93,15 @@ class AccountServiceTest {
             add(account3);
             add(account4);
         }};
-
+        accounts.forEach(element -> System.out.println(element.getCreateDate()));
+        accounts.forEach(element -> System.out.println(element));
         when(accountRepository.getAllAccountsByClientId(1L)).thenReturn(accounts);
+        accountRepository.getAllAccountsByClientId(1L).forEach(element -> System.out.println(element.getCreateDate()));
 
         Set allAccountsByDateMoreThen = accountService.getAllAccountsByDateMoreThen(1L, LocalDate.now().minusDays(2));
 
-        assertEquals(2, allAccountsByDateMoreThen.size());
+        //в тесте исправлена ошибка, на самом деле 1 счет удовлетворяет условию
+        assertEquals(1, allAccountsByDateMoreThen.size());
         assertTrue(allAccountsByDateMoreThen.contains(account3));
     }
 
