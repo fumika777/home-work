@@ -16,7 +16,6 @@ import static org.mockito.Mockito.when;
 
 class AccountServiceTest {
 
-    @Mock
     AccountRepository accountRepository;
 
     AccountService accountService;
