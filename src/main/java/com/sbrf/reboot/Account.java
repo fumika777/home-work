@@ -1,15 +1,14 @@
 package com.sbrf.reboot;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
+@AllArgsConstructor
 public class Account {
-    private String accountNm;
-    private Long clientId;
-
-    public Account(String newAccountNm) {
-        this.clientId=1L;
-        this.accountNm=newAccountNm;
-    }
-
+    private String currency;
+    private int amount;
+    private LocalDate date;
 }
